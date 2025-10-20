@@ -27,7 +27,8 @@ A Chrome extension to validate ideas and posts on Reddit by analyzing community 
 
 ## Screenshot
 
-![Chatbot Screenshot](Frontend/src/assets/Chatbot.jpg)
+![Reddit Post Validation](icons/images/Reddit_Post_Validation.jpg) 
+![Reddit Post Validation](icons/images/Reddit_Post_Validation_1.jpg)
 
 ---
 
