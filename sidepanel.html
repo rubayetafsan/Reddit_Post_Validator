@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      width: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #f8f9fa;
+      color: #1a1a1b;
+      overflow-y: auto;
+    }
+    .header {
+      background: linear-gradient(135deg, #0045ac 0%, #0066cc 100%);
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 69, 172, 0.15);
+    }
+    .close-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 4px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .content {
+      padding: 20px;
+    }
+    .section {
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 12px;
+      color: #0045ac;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      resize: vertical;
+      min-height: 80px;
+      font-size: 13px;
+      transition: border-color 0.2s;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: #0045ac;
+      box-shadow: 0 0 0 3px rgba(0, 69, 172, 0.1);
+    }
+    .button-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+    }
+    button {
+      background: linear-gradient(135deg, #0045ac 0%, #0066cc 100%);
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 2px 6px rgba(0, 69, 172, 0.2);
+    }
+    button:hover {
+      background: linear-gradient(135deg, #003399 0%, #0052a3 100%);
+      box-shadow: 0 4px 12px rgba(0, 69, 172, 0.3);
+      transform: translateY(-1px);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    #validateBtn {
+      flex: 1;
+      padding: 14px 20px;
+      font-size: 15px;
+    }
+    .results {
+      margin-top: 16px;
+      padding: 16px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      max-height: 400px;
+      overflow-y: auto;
+      display: none;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .results.show {
+      display: block;
+    }
+    .result-item {
+      margin-bottom: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .result-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    .result-pass {
+      color: #0a7e1e;
+      font-weight: 500;
+    }
+    .result-fail {
+      color: #be3000;
+      font-weight: 500;
+    }
+    .result-warning {
+      color: #f78500;
+      font-weight: 500;
+    }
+    .score {
+      margin-top: 16px;
+      padding: 16px;
+      background: white;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+      border-left: 4px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .score.show {
+      display: block;
+    }
+    .score-number {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .score-text {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    .score-high {
+      border-left-color: #0a7e1e;
+    }
+    .score-high .score-number {
+      color: #0a7e1e;
+    }
+    .score-medium {
+      border-left-color: #f78500;
+    }
+    .score-medium .score-number {
+      color: #f78500;
+    }
+    .score-low {
+      border-left-color: #be3000;
+    }
+    .score-low .score-number {
+      color: #be3000;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span>✓ Post Validator</span>
+    <button class="close-btn" id="closeBtn">✕</button>
+  </div>
+  
+  <div class="content">
+    <div class="section">
+      <div class="section-title">Post Title</div>
+      <textarea id="title" placeholder="Post title will appear here automatically..."></textarea>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Post Content</div>
+      <textarea id="content" placeholder="Paste your post content here..."></textarea>
+    </div>
+
+    <div class="button-group">
+      <button id="validateBtn">✓ Validate Post</button>
+    </div>
+    
+    <div class="results" id="results">
+      <div id="resultsList"></div>
+    </div>
+    
+    <div class="score" id="score"></div>
+  </div>
+  
+  <script src="sidepanel.js"></script>
+</body>
+</html>
